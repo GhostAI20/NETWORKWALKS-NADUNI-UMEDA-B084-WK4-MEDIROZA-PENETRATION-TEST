@@ -24,7 +24,7 @@ A total of **9 findings** were identified, including **3 CRITICAL** issues relat
 
 The website uses a custom CMS `Mediroza CMS 1.4.2` on a `LiteSpeed` server. No fixes were applied as per instructions.
 
-The most severe impact was achieved during Post-Exploitation, where an old database backup file was publicly downloaded from the `/old/` directory, exposing confidential staff and shareholder records.
+The most severe impact was achieved during **M3 - Sensitive Data Exposure**, where an old database backup file was publicly downloaded from the `/old/` directory, exposing confidential staff salaries and shareholder records.
 
 ---
 
@@ -47,8 +47,12 @@ The most severe impact was achieved during Post-Exploitation, where an old datab
 **M2 - Cracking / Post-Exploitation:**
 - PDF Hash Extraction & Password Cracking - Patient Reports
 - PDF Decrypted Content Analysis
-- Directory Enumeration - `/old/` Directory
+
+**M3 - Sensitive Data Exposure:**
+- Directory Enumeration - Gobuster - `/old/` Directory Discovery
 - Database Backup Analysis - `.sql` File Review
+- Staff Salaries Extraction
+- Shareholder Details Extraction
 
 All tests were performed on the provided simulated target for learning purposes only.
 
@@ -59,7 +63,7 @@ All tests were performed on the provided simulated target for learning purposes 
 | # | Finding | Severity | Status |
 | --- | --- | --- | --- |
 | 1 | Directory Indexing Enabled on /patient/, /staff/, /old/ | CRITICAL | Open |
-| 2 | Sensitive Database Backup Exposed in /old/ | CRITICAL | Open |
+| 2 | Sensitive Database Backup Exposed in /old/ - M3 | CRITICAL | Open |
 | 3 | Sensitive Directories Disclosed in robots.txt | HIGH | Open |
 | 4 | Missing Security Headers | MEDIUM | Open |
 | 5 | Server & CMS Version Disclosure | LOW | Open |
@@ -88,7 +92,7 @@ All tests were performed on the provided simulated target for learning purposes 
 
 **Recommendation:** Disable directory indexing on the server. Review to ensure no sensitive files are publicly accessible.
 
-### [CRITICAL] 2. Sensitive Database Backup Exposed in /old/ - M2 Post-Exploitation
+### [CRITICAL] 2. Sensitive Database Backup Exposed in /old/ - M3 Sensitive Data Exposure
 
 **Affected URL:**
 - `https://medirozohospital.com/old/mediroza_db_backup_2019.sql`
@@ -105,6 +109,10 @@ The file was publicly accessible without any authentication and was downloaded d
 **Risk:** This is a complete data breach. An attacker can download the full database backup and steal staff personal information, commit identity theft, and use salary and contact details for targeted phishing and social engineering. Exposure of shareholder data also creates financial and legal risk.
 
 **Recommendation:** Immediately remove all backup files from public web directories. Store backups in a secure, offline location with restricted access. Audit access logs to check if this file was downloaded by unauthorized users.
+
+![M3 Old Directory](Evidence/M3_Sensitive_Data_Exposure/M3_old_directory.png)
+![M3 Backup SQL](Evidence/M3_Sensitive_Data_Exposure/M3_backup_sql.png)
+![M3 Shareholder Details](Evidence/M3_Sensitive_Data_Exposure/M3_shareholder_details.png)
 
 ### [HIGH] 3. Sensitive Directories Disclosed in robots.txt
 
@@ -249,9 +257,9 @@ After cracking, decrypted patient content was exposed, confirming patient privac
 
 ## 7. Conclusion
 
-The main priority is to fix **Finding #1 (Directory Indexing)**, **Finding #2 (Database Backup Exposure)**, and **Finding #8 (SQL Injection)** immediately, as they expose hospital internal directories, allow login bypass, and expose a full confidential database backup.
+The main priority is to fix **Finding #1 (Directory Indexing)**, **Finding #2 (Database Backup Exposure - M3)**, and **Finding #8 (SQL Injection)** immediately, as they expose hospital internal directories, allow login bypass, and expose a full confidential database backup.
 
-The discovery of `mediroza_db_backup_2019.sql` in the `/old/` directory proves the real-world impact of directory indexing. What started as a simple directory listing led to complete exposure of staff and shareholder data.
+The discovery of `mediroza_db_backup_2019.sql` in the `/old/` directory proves the real-world impact of directory indexing. What started as a simple directory listing led to complete exposure of staff salaries and shareholder data.
 
 The remaining findings should be reviewed by the Mediroza IT Department.
 
