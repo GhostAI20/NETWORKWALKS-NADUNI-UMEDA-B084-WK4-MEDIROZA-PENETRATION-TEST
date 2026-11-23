@@ -41,9 +41,12 @@ The most severe impact was achieved during Post-Exploitation, where an old datab
 - `Zenmap / Nmap` - Network Scanning
 - Manual Review - `robots.txt` & `sitemap.xml`
 
-**M2 - Exploitation / Post-Exploitation:**
+**M1 - Authentication Bypass:**
 - SQL Injection Testing - Patient Portal Login
-- PDF Metadata Analysis - Patient Reports
+
+**M2 - Cracking / Post-Exploitation:**
+- PDF Hash Extraction & Password Cracking - Patient Reports
+- PDF Decrypted Content Analysis
 - Directory Enumeration - `/old/` Directory
 - Database Backup Analysis - `.sql` File Review
 
@@ -81,12 +84,9 @@ All tests were performed on the provided simulated target for learning purposes 
 [750500] /staff/: Directory indexing found.
 [750500] /old/: Directory indexing found.
 
-
 **Risk:** Anyone can view the file listing inside hospital patient, staff, and old directories. This can lead to sensitive data exposure.
 
 **Recommendation:** Disable directory indexing on the server. Review to ensure no sensitive files are publicly accessible.
-
-![Directory Listing](Evidence/M2_Exploitation/old-directory-listing.png)
 
 ### [CRITICAL] 2. Sensitive Database Backup Exposed in /old/ - M2 Post-Exploitation
 
@@ -106,15 +106,12 @@ The file was publicly accessible without any authentication and was downloaded d
 
 **Recommendation:** Immediately remove all backup files from public web directories. Store backups in a secure, offline location with restricted access. Audit access logs to check if this file was downloaded by unauthorized users.
 
-![SQL Backup Content](Evidence/M2_Exploitation/sql-backup-content.png)
-
 ### [HIGH] 3. Sensitive Directories Disclosed in robots.txt
 
 **Evidence:**
 Disallow: /patient/
 Disallow: /staff/
 Disallow: /old/
-
 
 **Risk:** `robots.txt` publicly reveals the location of sensitive areas, helping attackers to target them.
 
@@ -137,6 +134,8 @@ Disallow: /old/
 **Recommendation:** Implement recommended security headers on LiteSpeed server.
 
 ![Curl Headers](Evidence/M1_Initial_Access/curl.png)
+![Curl Headers 2](Evidence/M1_Initial_Access/curl-headers.png)
+![Devtools Network](Evidence/M1_Initial_Access/devtools-network.png)
 
 ### [LOW] 5. Server & CMS Version Disclosure
 
@@ -149,6 +148,9 @@ Disallow: /old/
 **Risk:** Attacker can easily search for known vulnerabilities for this specific version.
 
 **Recommendation:** Hide server version banners and CMS version meta tags.
+
+![WhatWeb](Evidence/M1_Initial_Access/whatweb.png)
+![WhatWeb Bypass](Evidence/M1_Initial_Access/whatweb-bypass.png)
 
 ### [LOW] 6. BREACH Attack Possible
 
@@ -165,21 +167,22 @@ Disallow: /old/
 
 **Risk:** Can be used for phishing / spam.
 
-### [CRITICAL] 8. SQL Injection in Patient Portal Login - M2
+![WhatWeb](Evidence/M1_Initial_Access/whatweb.png)
+
+### [CRITICAL] 8. SQL Injection in Patient Portal Login - M1 Authentication Bypass
 
 **Affected URL:** Patient Portal Login Page
 
 **Payload Tested:** `admin' --` as username, any value as password
-
-**Evidence:** `login-bypass.png`
 
 **Risk:** Attacker can bypass authentication without valid credentials and access patient portal. This leads to unauthorized access to patient data.
 
 **Recommendation:** Use parameterized queries / prepared statements. Implement input validation and WAF rules for SQL injection patterns.
 
 ![Login Bypass](Evidence/M1_Initial_Access/login-bypass.png)
+![SQLi Login Bypass Admin](Evidence/M1_Authentication_Bypass/sqli-login-bypass-admin.png)
 
-### [HIGH] 9. Sensitive PDFs Exposed via Directory Listing - M2
+### [HIGH] 9. Sensitive PDFs Exposed via Directory Listing - M2 Cracking
 
 **Evidence:**
 - `patient_report_1.pdf`
@@ -188,26 +191,32 @@ Disallow: /old/
 
 Downloaded from `/patient/` directory listing.
 
-**PDF Metadata Analysis:**
-PDF 3 (E. Thompson - Pathology Report) was analyzed for metadata. The analysis showed:
-- Title: Pathology Report - E. Thompson
-- Custom Metadata: No
-- Encrypted: No
-- No hidden comment was found in the current version. The original hint about the backup location has been removed from the metadata.
+**PDF Cracking Analysis:**
+All 3 PDFs were password-protected. Hashes were extracted and cracked successfully, proving weak passwords were used for sensitive medical reports.
 
-This confirmed that the attacker must pivot to manual directory enumeration, which led to the discovery of the `/old/` directory and the database backup.
+- PDF 1 - Password cracked: `123456`
+- PDF 2 - Password cracked: `password`
+- PDF 3 - Password cracked: Symbols-based weak password
+
+After cracking, decrypted patient content was exposed, confirming patient privacy violation.
 
 **Risk:** Patient reports are publicly downloadable. Exposure of medical reports violates patient privacy.
 
 **Recommendation:** Remove public access to patient reports. Protect PDFs with strong passwords and proper access control.
 
-![PDF Metadata](Evidence/M2_Exploitation/pdf-metadata.png)
-![Patient Directory](Evidence/M1_Initial_Access/patient-directory-listing.png)
+![PDF1 Hash](Evidence/M2_Cracking/pdf1-hash.png)
+![PDF1 Cracked](Evidence/M2_Cracking/pdf1-password-cracked-123456.png)
+![PDF1 Decrypted](Evidence/M2_Cracking/pdf1-decrypted-content.png)
+![PDF2 Hash](Evidence/M2_Cracking/pdf2-hash.png)
+![PDF2 Cracked](Evidence/M2_Cracking/pdf2-password-cracked-password.png)
+![PDF2 Decrypted](Evidence/M2_Cracking/pdf2-decrypted-content.png)
+![PDF3 Hash](Evidence/M2_Cracking/pdf3-hash.png)
+![PDF3 Cracked](Evidence/M2_Cracking/pdf3-password-cracked-symbols.png)
+![PDF3 Decrypted](Evidence/M2_Cracking/pdf3-decrypted-content.png)
 
 ---
 
 ## 5. Evidence - M1 Initial Access
-
 
 **Whois Findings:**
 - Domain: MEDIROZAHOSPITAL.COM
@@ -221,11 +230,13 @@ This confirmed that the attacker must pivot to manual directory enumeration, whi
 - Mail Server: mx3-hosting.jellyfish.systems
 - 12 SRV Records found
 
-![Whois](Evidence/M1_Initial_Access/whois.png)
 ![Dnsrecon](Evidence/M1_Initial_Access/dnsrecon.png)
 ![Nslookup](Evidence/M1_Initial_Access/nslookup.png)
 ![WAF](Evidence/M1_Initial_Access/wafw00f.png)
 ![Network Scanning](Evidence/M1_Initial_Access/network-scanning.png)
+![Network Topology](Evidence/M1_Initial_Access/network-topology.png)
+![Nmap Services](Evidence/M1_Initial_Access/nmap-services.png)
+![Sitemap](Evidence/M1_Initial_Access/sitemap.png)
 
 ---
 
