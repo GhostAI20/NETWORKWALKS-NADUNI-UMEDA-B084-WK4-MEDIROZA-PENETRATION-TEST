@@ -110,9 +110,9 @@ The file was publicly accessible without any authentication and was downloaded d
 
 **Recommendation:** Immediately remove all backup files from public web directories. Store backups in a secure, offline location with restricted access. Audit access logs to check if this file was downloaded by unauthorized users.
 
-![M3 Old Directory](Evidence/M3_Sensitive_Data_Exposure/M3_old_directory.png)
-![M3 Backup SQL](Evidence/M3_Sensitive_Data_Exposure/M3_backup_sql.png)
-![M3 Shareholder Details](Evidence/M3_Sensitive_Data_Exposure/M3_shareholder_details.png)
+<img src="Evidence/M3_Sensitive_Data_Exposure/M3_old_directory.png" width="800">
+<img src="Evidence/M3_Sensitive_Data_Exposure/M3_backup_sql.png" width="800">
+<img src="Evidence/M3_Sensitive_Data_Exposure/M3_shareholder_details.png" width="800">
 
 ### [HIGH] 3. Sensitive Directories Disclosed in robots.txt
 
@@ -125,7 +125,7 @@ Disallow: /old/
 
 **Recommendation:** Remove sensitive paths from robots.txt and protect them with authentication at server level.
 
-![robots.txt](Evidence/M1_Initial_Access/robots-txt.png)
+<img src="Evidence/M1_Initial_Access/robots-txt.png" width="800">
 
 ### [MEDIUM] 4. Missing Security Headers
 
@@ -141,9 +141,9 @@ Disallow: /old/
 
 **Recommendation:** Implement recommended security headers on LiteSpeed server.
 
-![Curl Headers](Evidence/M1_Initial_Access/curl.png)
-![Curl Headers 2](Evidence/M1_Initial_Access/curl-headers.png)
-![Devtools Network](Evidence/M1_Initial_Access/devtools-network.png)
+<img src="Evidence/M1_Initial_Access/curl.png" width="800">
+<img src="Evidence/M1_Initial_Access/curl-headers.png" width="800">
+<img src="Evidence/M1_Initial_Access/devtools-network.png" width="800">
 
 ### [LOW] 5. Server & CMS Version Disclosure
 
@@ -157,7 +157,7 @@ Disallow: /old/
 
 **Recommendation:** Hide server version banners and CMS version meta tags.
 
-![WhatWeb Bypass](Evidence/M1_Initial_Access/whatweb-bypass.png)
+<img src="Evidence/M1_Initial_Access/whatweb-bypass.png" width="800">
 
 ### [LOW] 6. BREACH Attack Possible
 
@@ -174,7 +174,7 @@ Disallow: /old/
 
 **Risk:** Can be used for phishing / spam.
 
-<img width="1122" height="216" alt="whatweb-bypass" src="https://github.com/user-attachments/assets/3608b10d-b3e4-428d-842e-f7b603e4c5c9" />
+<img width="800" alt="whatweb-bypass" src="https://github.com/user-attachments/assets/3608b10d-b3e4-428d-842e-f7b603e4c5c9">
 
 ### [CRITICAL] 8. SQL Injection in Patient Portal Login - M1 Authentication Bypass
 
@@ -186,8 +186,8 @@ Disallow: /old/
 
 **Recommendation:** Use parameterized queries / prepared statements. Implement input validation and WAF rules for SQL injection patterns.
 
-![Login Bypass](Evidence/M1_Initial_Access/login-bypass.png)
-![SQLi Login Bypass Admin](Evidence/M1_Authentication_Bypass/sqli-login-bypass-admin.png)
+<img src="Evidence/M1_Initial_Access/login-bypass.png" width="800">
+<img src="Evidence/M1_Authentication_Bypass/sqli-login-bypass-admin.png" width="800">
 
 ### [HIGH] 9. Sensitive PDFs Exposed via Directory Listing - M2 Cracking
 
@@ -211,15 +211,15 @@ After cracking, decrypted patient content was exposed, confirming patient privac
 
 **Recommendation:** Remove public access to patient reports. Protect PDFs with strong passwords and proper access control.
 
-![PDF1 Hash](Evidence/M2_Cracking/pdf1-hash.png)
-![PDF1 Cracked](Evidence/M2_Cracking/pdf1-password-cracked-123456.png)
-![PDF1 Decrypted](Evidence/M2_Cracking/pdf1-decrypted-content.png)
-![PDF2 Hash](Evidence/M2_Cracking/pdf2-hash.png)
-![PDF2 Cracked](Evidence/M2_Cracking/pdf2-password-cracked-password.png)
-![PDF2 Decrypted](Evidence/M2_Cracking/pdf2-decrypted-content.png)
-![PDF3 Hash](Evidence/M2_Cracking/pdf3-hash.png)
-![PDF3 Cracked](Evidence/M2_Cracking/pdf3-password-cracked-symbols.png)
-![PDF3 Decrypted](Evidence/M2_Cracking/pdf3-decrypted-content.png)
+<img src="Evidence/M2_Cracking/pdf1-hash.png" width="800">
+<img src="Evidence/M2_Cracking/pdf1-password-cracked-123456.png" width="800">
+<img src="Evidence/M2_Cracking/pdf1-decrypted-content.png" width="800">
+<img src="Evidence/M2_Cracking/pdf2-hash.png" width="800">
+<img src="Evidence/M2_Cracking/pdf2-password-cracked-password.png" width="800">
+<img src="Evidence/M2_Cracking/pdf2-decrypted-content.png" width="800">
+<img src="Evidence/M2_Cracking/pdf3-hash.png" width="800">
+<img src="Evidence/M2_Cracking/pdf3-password-cracked-symbols.png" width="800">
+<img src="Evidence/M2_Cracking/pdf3-decrypted-content.png" width="800">
 
 ---
 
@@ -237,13 +237,13 @@ After cracking, decrypted patient content was exposed, confirming patient privac
 - Mail Server: mx3-hosting.jellyfish.systems
 - 12 SRV Records found
 
-![Dnsrecon](Evidence/M1_Initial_Access/dnsrecon.png)
-![Nslookup](Evidence/M1_Initial_Access/nslookup.png)
-![WAF](Evidence/M1_Initial_Access/wafw00f.png)
-![Network Scanning](Evidence/M1_Initial_Access/network-scanning.png)
-![Network Topology](Evidence/M1_Initial_Access/network-topology.png)
-![Nmap Services](Evidence/M1_Initial_Access/nmap-services.png)
-![Sitemap](Evidence/M1_Initial_Access/sitemap.png)
+<img src="Evidence/M1_Initial_Access/dnsrecon.png" width="800">
+<img src="Evidence/M1_Initial_Access/nslookup.png" width="800">
+<img src="Evidence/M1_Initial_Access/wafw00f.png" width="800">
+<img src="Evidence/M1_Initial_Access/network-scanning.png" width="800">
+<img src="Evidence/M1_Initial_Access/network-topology.png" width="800">
+<img src="Evidence/M1_Initial_Access/nmap-services.png" width="800">
+<img src="Evidence/M1_Initial_Access/sitemap.png" width="800">
 
 ---
 
