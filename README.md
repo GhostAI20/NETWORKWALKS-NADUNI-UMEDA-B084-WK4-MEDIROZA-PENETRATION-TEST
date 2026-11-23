@@ -166,7 +166,7 @@ Disallow: /old/
 
 **Risk:** Can be used for phishing / spam.
 
-![WhatWeb](Evidence/M1_Initial_Access/whatweb.png)
+<img width="1122" height="216" alt="whatweb-bypass" src="https://github.com/user-attachments/assets/3608b10d-b3e4-428d-842e-f7b603e4c5c9" />
 
 ### [CRITICAL] 8. SQL Injection in Patient Portal Login - M1 Authentication Bypass
 
