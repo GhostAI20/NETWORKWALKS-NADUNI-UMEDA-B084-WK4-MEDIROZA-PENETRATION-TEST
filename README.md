@@ -149,7 +149,6 @@ Disallow: /old/
 
 **Recommendation:** Hide server version banners and CMS version meta tags.
 
-![WhatWeb](Evidence/M1_Initial_Access/whatweb.png)
 ![WhatWeb Bypass](Evidence/M1_Initial_Access/whatweb-bypass.png)
 
 ### [LOW] 6. BREACH Attack Possible
