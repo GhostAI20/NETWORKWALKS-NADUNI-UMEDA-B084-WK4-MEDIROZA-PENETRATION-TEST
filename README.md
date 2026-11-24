@@ -18,7 +18,7 @@
 
 ## 1. Executive Summary
 
-A black-box security assessment was performed on `medirozohospital.com` as part of the Week 4 capstone project.
+A black-box security assessment was performed on `medirozahospital.com` as part of the Week 4 capstone project.
 
 A total of **9 findings** were identified, including **3 CRITICAL** issues related to exposed sensitive directories, exposed database backup, and SQL Injection.
 
