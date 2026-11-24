@@ -79,9 +79,9 @@ All tests were performed on the provided simulated target for learning purposes 
 ### [CRITICAL] 1. Directory Indexing Enabled
 
 **Affected URLs:**
-- `https://medirozohospital.com/patient/`
-- `https://medirozohospital.com/staff/`
-- `https://medirozohospital.com/old/`
+- `https://medirozahospital.com/patient/`
+- `https://medirozahospital.com/staff/`
+- `https://medirozahospital.com/old/`
 
 **Evidence (Nikto):**
 [750500] /patient/: Directory indexing found.
@@ -95,7 +95,7 @@ All tests were performed on the provided simulated target for learning purposes 
 ### [CRITICAL] 2. Sensitive Database Backup Exposed in /old/ - M3 Sensitive Data Exposure
 
 **Affected URL:**
-- `https://medirozohospital.com/old/mediroza_db_backup_2019.sql`
+- `https://medirozahospital.com/old/mediroza_db_backup_2019.sql`
 
 **Evidence:**
 The file was publicly accessible without any authentication and was downloaded directly from the directory listing. The file header contains the following warning:
@@ -170,7 +170,7 @@ Disallow: /old/
 
 ### [INFO] 7. Email Disclosure
 
-**Evidence:** `info@medirozohospital.com` found via WhatWeb
+**Evidence:** `info@medirozahospital.com` found via WhatWeb
 
 **Risk:** Can be used for phishing / spam.
 
