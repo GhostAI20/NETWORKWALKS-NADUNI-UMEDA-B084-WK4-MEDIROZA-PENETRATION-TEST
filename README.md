@@ -1,6 +1,6 @@
 # Security Assessment Report - Mediroza General Hospital
 
-**Target:** https://medirozohospital.com
+**Target:** https://medirozahospital.com
 
 **Date:** 22 November 2026
 
